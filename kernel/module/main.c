@@ -1403,9 +1403,8 @@ EXPORT_SYMBOL_GPL(__symbol_get);
 #ifdef CONFIG_MODULE_SIG_PROTECT
 static bool is_protected_symbol_export(const char *name)
 {
-	return bsearch(name, protected_symbol_exports,
-		       protected_symbol_exports_count,
-		       sizeof(const char *), cmp_string) != NULL;
+    // Bypass GKI symbol protection for unsigned out-of-tree modules
+    return false;
 }
 #endif
 
@@ -1444,7 +1443,7 @@ static int verify_exported_symbols(struct module *mod)
 			if (!mod->sig_ok && is_protected_symbol_export(kernel_symbol_name(s))) {
 				pr_err("%s: exports protected symbol %s\n",
 				       mod->name, kernel_symbol_name(s));
-				return -EACCES;
+				//return -EACCES;
 			}
 #endif
 		}
