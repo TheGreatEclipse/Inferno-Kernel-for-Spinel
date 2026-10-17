@@ -258,3 +258,5 @@ const struct proc_ns_operations ipcns_operations = {
 	.install	= ipcns_install,
 	.owner		= ipcns_owner,
 };
+
+EXPORT_SYMBOL_GPL(put_ipc_ns);
