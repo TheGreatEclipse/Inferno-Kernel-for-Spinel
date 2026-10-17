@@ -24,6 +24,9 @@
 #include <linux/posix_acl_xattr.h>
 
 #include <linux/uaccess.h>
+#ifdef CONFIG_ZEROMOUNT
+#include <linux/zeromount.h>
+#endif
 
 #include "internal.h"
 
@@ -428,6 +431,12 @@ ssize_t
 vfs_getxattr(struct mnt_idmap *idmap, struct dentry *dentry,
 	     const char *name, void *value, size_t size)
 {
+#ifdef CONFIG_ZEROMOUNT
+	ssize_t zm_ret;
+	zm_ret = zeromount_spoof_xattr(dentry, name, value, size);
+	if (zm_ret != -EOPNOTSUPP)
+		return zm_ret;
+#endif
 	struct inode *inode = dentry->d_inode;
 	int error;
 

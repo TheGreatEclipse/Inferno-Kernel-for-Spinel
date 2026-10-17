@@ -19,6 +19,9 @@
 #include <linux/mmu_notifier.h>
 #include <linux/page_idle.h>
 #include <linux/page_size_compat.h>
+#ifdef CONFIG_ZEROMOUNT
+#include <linux/zeromount.h>
+#endif
 #include <linux/shmem_fs.h>
 #include <linux/uaccess.h>
 #include <linux/pkeys.h>
@@ -379,6 +382,9 @@ show_map_vma(struct seq_file *m, struct vm_area_struct *vma)
 #endif // #ifdef CONFIG_KSU_SUSFS_SUS_MAP
 		dev = inode->i_sb->s_dev;
 		ino = inode->i_ino;
+#ifdef CONFIG_ZEROMOUNT
+		zeromount_spoof_mmap_metadata(inode, &dev, &ino);
+#endif
 		pgoff = ((loff_t)vma->vm_pgoff) << PAGE_SHIFT;
 #ifdef CONFIG_KSU_SUSFS_SUS_KSTAT
 		susfs_sus_kstat_spoof_show_map_vma((struct inode *)inode, &dev, &ino);
