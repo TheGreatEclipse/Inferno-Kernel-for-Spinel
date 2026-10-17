@@ -2,7 +2,6 @@
 VERSION = 6
 PATCHLEVEL = 12
 SUBLEVEL = 30
-EXTRAVERSION = -Inferno
 NAME = Baby Opossum Posse
 
 # *DOCUMENTATION*
