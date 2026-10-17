@@ -815,3 +815,9 @@ CONFIG_KUNIT_EXAMPLE_TEST=m
 
 CONFIG_BBG=y
 CONFIG_LSM="landlock,lockdown,yama,loadpin,safesetid,selinux,smack,tomoyo,apparmor,ipe,bpf,baseband_guard"
+CONFIG_CIFS=y
+CONFIG_NETWORK_FILESYSTEMS=y
+CONFIG_NETFS_SUPPORT=y
+CONFIG_KEYS=y
+CONFIG_CIFS_XATTR=y
+CONFIG_CIFS_POSIX=y
